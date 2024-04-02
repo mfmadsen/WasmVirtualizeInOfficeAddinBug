@@ -13,6 +13,22 @@
 }
 else
 {
+    <h1>Virtualized list</h1>
+    <button @onclick="this.ToggleVirtualizedList">
+        @(this.showVirtualizedList ? "Hide" : "Show")
+    </button>
+    @if (this.showVirtualizedList)
+    {
+        <Virtualize Items="forecasts" Context="forecast">
+            <div>
+                <span>@forecast.Date.ToShortDateString()</span>
+                <span>@forecast.TemperatureC</span>
+                <span>@forecast.TemperatureF</span>
+                <span>@forecast.Summary</span>
+            </div>
+        </Virtualize>
+    }
+
     <table class="table">
         <thead>
             <tr>
@@ -23,22 +39,6 @@ else
             </tr>
         </thead>
         <tbody>
-            <h1>Virtualized list</h1>
-            <button @onclick="this.ToggleVirtualizedList">
-                @(this.showVirtualizedList ? "Hide" : "Show")
-            </button>
-            @if (this.showVirtualizedList)
-            {
-                <Virtualize Items="this.forecasts" Context="forecast">
-                    <tr>
-                        <td>@forecast.Date.ToShortDateString()</td>
-                        <td>@forecast.TemperatureC</td>
-                        <td>@forecast.TemperatureF</td>
-                        <td>@forecast.Summary</td>
-                    </tr>
-                </Virtualize>
-            }
-
             <h1>For each list</h1>
             @foreach (var forecast in forecasts)
             {
